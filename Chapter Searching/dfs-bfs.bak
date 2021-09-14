@@ -1,0 +1,63 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname dfs-bfs) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+
+;; A (treeof X) is either
+;;   1. empty
+;;   2. (cons X (listof (treeof X)))
+
+;; natnum --> (treeof number)
+;; Purpose: Create a random tree of the given depth
+(define (make-ton d)
+  (cond  [(= d 0) '()]
+         [(= d 1) (list (random 1000000))]
+         [else
+          (cons (random 1000000)
+                (build-list (random 11)
+                            (λ (i) (make-ton (sub1 d)))))]))
+
+(define T0 '())
+(define T1 (cons 10 '()))
+(define T2 (cons 600 (list (cons 850
+                                 (list (list 70) (list 3)))
+                           (cons 235
+                                 (list (list 87) (list -5) (list 0)))
+                           (list 66)
+                           (cons -88
+                                 (list (cons 23
+                                             (list (list 44) (list 47))))))))
+(define T3 (make-ton 4))
+
+;; number (treeof number) --> Boolean
+;; Purpose: Determine if the given number is in the given tree
+(define (ton-dfs-contains? a-num a-ton)
+  (and (not (empty? a-ton))
+       (or (= a-num (first a-ton))
+           (ormap (λ (t) (ton-dfs-contains? a-num t))
+                  (rest a-ton)))))
+
+;; Sample expressions for ton-dfs-contains?
+(define T0-DFS-VAL (and (not (empty? T0))
+                        (or (= 77 (first T0))
+                            (ormap (λ (t) (ton-dfs-contains? 77 t))
+                                   (rest T0)))))
+(define T1-DFS-VAL (and (not (empty? T1))
+                        (or (= 33 (first T1))
+                            (ormap (λ (t) (ton-dfs-contains? 33 t))
+                                   (rest T1)))))
+(define T2-DFS-VAL (and (not (empty? T2))
+                        (or (= 23 (first T2))
+                            (ormap (λ (t) (ton-dfs-contains? 23 t))
+                                   (rest T2)))))
+(define T3-DFS-VAL (and (not (empty? T3))
+                        (or (= 45 (first T3))
+                            (ormap (λ (t) (ton-dfs-contains? 45 t))
+                                   (rest T3)))))
+
+;; Tests using sample computations for ton-dfs-contains?
+(check-expect (ton-dfs-contains? 77 T0) T0-DFS-VAL)
+(check-expect (ton-dfs-contains? 33 T1) T1-DFS-VAL)
+(check-expect (ton-dfs-contains? 23 T2) T2-DFS-VAL)
+;(check-expect (ton-dfs-contains? 45 T3) T3-DFS-VAL)
+
+;; Tests using sample values for ton-dfs-contains?
