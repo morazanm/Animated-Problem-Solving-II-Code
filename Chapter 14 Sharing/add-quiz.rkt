@@ -12,13 +12,13 @@
 ;;  (list quiz)
 ;;  (cons quiz loq)
 
-
+;; loq
 ;; Purpose: A loq for this semester 
 (define MYQZS 'uninitialized)
      
 ;;  --> (void)
 ;; Purpose: Initialize MYQZS
-;; Effect:  MYQZS is initialized to \textquotesingle{}(100 90 100)
+;; Effect:  MYQZS is initialized to '(100 90 100)
 (define (initialize-myqzs) 
   (set! MYQZS '(100 90 100)))
      
@@ -41,12 +41,7 @@
                 MYQZS)
               (list 88 100 90 100))
 
-#| This test fails: Loss of referential transparency.
-(check-expect (begin
-                (add-quiz! 88)
-                MYQZS)
-              (begin
-                (add-quiz! 88)
-                MYQZS))
-|#
+#| This test fails: Loss of referential transparency. |#
+
+
 

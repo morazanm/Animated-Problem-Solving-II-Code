@@ -13,39 +13,43 @@
 (define (max-lon L)
   (if (empty? L)
       (error "The empty list does not have a maximum element.")
-  (local [;; lon
-          ;; Purpose: Unprocessed part of L
-          (define ul (void))
+      (local [;; lon
+              ;; Purpose: Unprocessed part of L
+              (define ul (void))
 
-          ;; number
-          ;; Purpose: The maximum in the processed part of L
-          (define max (void))]
-    (begin
-      (set! ul L)
-      (set! max -inf.0)
-      ;; INV: L = (append (L - ul) ul) AND max = maximum(L-ul)
-      (while (not (empty? ul))
-             ;; L = (append (L - ul) ul) AND max = maximum(L-ul)
-             (if (> (first ul) max)
-                 (begin
-                 ;; L = (append (L - ul) ul) AND max = maximum(L-ul) AND (> (first ul) max)
-                 (set! max (first ul))
-                 ;; L = (append (L - ul) ul) AND max = maximum(L-(rest ul))
-                 (set! ul (rest ul))
+              ;; number
+              ;; Purpose: The maximum in the processed part of L
+              (define max (void))]
+        (begin
+          (set! ul L)
+          (set! max -inf.0)
+          ;; INV: L = (append (L - ul) ul) AND max = maximum(L-ul)
+          (while (not (empty? ul))
                  ;; L = (append (L - ul) ul) AND max = maximum(L-ul)
-                 )
-                 ;; else
-                 ;; L = (append (L - ul) ul) AND max = maximum(L-ul) AND (<= (first ul) max)
-                 (set! ul (rest ul))
-                 ;; L = (append (L - ul) ul) AND max = maximum(L-ul)
-                 ))
-      ;; L = (append (L - ul) ul) AND max = maximum(L-ul) AND (empty? ul)
-      ;; ==> max = maximum(L)
-      max))))
+                 (if (> (first ul) max)
+                     (begin
+                       ;; L = (append (L - ul) ul) AND max = maximum(L-ul) AND (> (first ul) max)
+                       (set! max (first ul))
+                       ;; L = (append (L - ul) ul) AND max = maximum(L-(rest ul))
+                       (set! ul (rest ul))
+                       ;; L = (append (L - ul) ul) AND max = maximum(L-ul)
+                       )
+                     ;; else
+                     ;; L = (append (L - ul) ul) AND max = maximum(L-ul) AND (<= (first ul) max)
+                     (set! ul (rest ul))
+                     ;; L = (append (L - ul) ul) AND max = maximum(L-ul)
+                     ))
+          ;; L = (append (L - ul) ul) AND max = maximum(L-ul) AND (empty? ul)
+          ;; ==> max = maximum(L)
+          max)
+        ;; Termination Argument
+        ;; ul starts as a nonempty lon. Each loop iteration 
+        ;; decrements ul's length by 1. Eventually, ul 
+        ;; becomes empty and the loop terminates.
+        )))
 
 ;; Tests for max-lon
 (check-error  (max-lon L0) "The empty list does not have a maximum element.")
 (check-expect (max-lon L1) 6)
 (check-expect (max-lon L2) 5)
 (check-expect (max-lon L3) 54)
-             

@@ -86,7 +86,16 @@
           ;;                      AND is-prime[j] ==> no proper divisor of j in [2..high]
           ;; For j in [2..n], (not is-prime[j]) ==> j is not a prime
           ;;                  AND is-prime[j] ==> j is prime
-          (extract-primes 2 n)))))
+          (extract-primes 2 n)
+          ;; Termination Argument
+          ;; The loop traverses [2..(quotient n 2)] from the low end to
+          ;; the high end. The traversal starts with low equal to 2. 
+          ;; Every time the body of the loop is evaluated, regardless
+          ;; of which path is taken in the if-expr, low is
+          ;; incremented reducing the size of the vector interval to
+          ;; traverse by 1. Eventually, the vector interval becomes empty
+          ;; when low = (quotient n 2) + 1 and the loop halts.
+          ))))
 
 ;; Tests for sieve-vector
 (check-expect (sieve-vector 0)  '())
