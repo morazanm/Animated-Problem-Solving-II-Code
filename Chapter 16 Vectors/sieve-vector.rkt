@@ -103,6 +103,6 @@
 (check-expect (sieve-vector 11) '(2 3 5 7 11))
 (check-expect (sieve-vector 20) '(2 3 5 7 11 13 17 19))
 
-(define T2 (time (sieve-vector 50000)))
+;(define T2 (time (sieve-vector 50000)))
 
 

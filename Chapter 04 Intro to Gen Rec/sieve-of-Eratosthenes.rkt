@@ -10,10 +10,10 @@
 (define SEVEN 7)
 (define 12K   12000)
 
-(define L1 '(17 19 23 29 31 37 41 43 47 49 53 59 61 67))
-(define L2 '(3 5))
-(define L3 '(2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20))
-(define L4 '(3 5 7 9 11 13 15 17 19 21 23))
+(define L1 '(7))
+(define L2 '(11 13 17))
+(define L3 '(5 7 11))
+(define L4 '(2 3 4 5 6 7 8))
 
 (define (all-primes<=n n)
   (local [;; natnum --> Boolean
@@ -60,9 +60,10 @@
 (define (the-primes<=n n)
   (if (< n 2)
       '()
-      (sieve (rest (rest (build-list (add1 n) (λ (i) i)))))))
+      ;(sieve (rest (rest (build-list (add1 n) (λ (i) i)))))))
+      (sieve (build-list (- n 1) (λ (i) (+ i 2))) (quotient n 2))))
 
-;; (listof natnum) \arrow (listof natnum)
+;; (listof natnum) natnum \arrow (listof natnum)
 ;; Purpose: Extract the prime numbers in the given list
 ;; Assumption: The given list is nonempty, its first
 ;;   element is prime, and contains no numbers that
@@ -73,25 +74,40 @@
 ;;   number to the result and repeat the process
 ;;   by removing the multiples of the first element from
 ;;   the rest of the given list.
-(define (sieve lon)
-  (if (< (length (rest lon)) (first lon))
-      lon
-      (local
-        [(define new-inst (filter
-                           (λ (n)
-                             (not (= (remainder n (first lon)) 0)))
-                           (rest lon)))]
-        (cons (first lon) (sieve new-inst)))))
+(define (sieve lon limit)
+  (if  (or (empty? lon)
+           (> (first lon) limit))
+       lon
+       (local
+         [(define new-inst (filter
+                            (λ (n)
+                              (not (= (remainder n (first lon)) 0)))
+                            (rest lon)))]
+         (cons (first lon) (sieve new-inst limit))))
+  #|
+    Every recursive call is made with a shorter list given
+    that at the very least the first element of the given
+    list is removed. In addition, with every recursive
+    call made the first element of the list becomes larger
+    when the list is nonempty. These observations put
+    together mean that the eventually list becomes empty or
+    the first element of the list becomes larger than the
+    given limit value and the function halts. |#
+  )
 
 
        
 ;; Sample expressions for the-primes<=n
 (define ZERO-VALUE  '())
 (define ONE-VALUE   '())
-(define FIVE-VALUE (sieve (rest (rest (build-list (add1 FIVE) (λ (i) i))))))
-(define SEVEN-VALUE (sieve (rest (rest (build-list (add1 SEVEN)(λ (i) i))))))
-(define SIX-VALUE (sieve (rest (rest (build-list (add1 SIX)(λ (i) i))))))
-(define 12K-VALUE (sieve (rest (rest (build-list (add1 12K) (λ (i) i))))))
+(define FIVE-VALUE (sieve (build-list (- FIVE 1) (λ (i) (+ i 2)))
+                          (quotient FIVE 2)))
+(define SEVEN-VALUE (sieve (build-list (- SEVEN 1) (λ (i) (+ i 2)))
+                           (quotient SEVEN 2)))
+(define SIX-VALUE (sieve (build-list (- SIX 1) (λ (i) (+ i 2)))
+                         (quotient SIX 2)))
+(define 12K-VALUE (sieve (build-list (- 12K 1) (λ (i) (+ i 2)))
+                         (quotient 12K 2)))
 
 ;; Tests using sample computations for the-primes<=n
 (check-expect (the-primes<=n ZERO)  ZERO-VALUE)
@@ -104,40 +120,33 @@
 (check-expect (the-primes<=n 17) '(2 3 5 7 11 13 17))
 (check-expect (the-primes<=n 3)  '(2 3))
 
-
 ;; Sample expressions for sieve
 (define L1-VAL L1)
 (define L2-VAL L2)
-(define L3-VAL
-  (local
-    [(define new-inst
-       (filter
-        (λ (n)
-          (not (= (remainder n (first L3)) 0)))
-        (rest L3)))]
-    (cons (first L3) (sieve new-inst))))
-(define L4-VAL
-  (local
-    [(define new-inst
-       (filter
-        (λ (n)
-          (not (= (remainder n (first L4)) 0)))
-        (rest L4)))]
-    (cons (first L4) (sieve new-inst))))
+(define L3-VAL (local
+                 [(define new-inst (filter
+                                    (λ (n)
+                                      (not (= (remainder n (first L3)) 0)))
+                                    (rest L3)))]
+                 (cons (first L3) (sieve new-inst 6))))
+
+(define L4-VAL (local
+                 [(define new-inst (filter
+                                    (λ (n)
+                                      (not (= (remainder n (first L4)) 0)))
+                                    (rest L4)))]
+                 (cons (first L4) (sieve new-inst 4))))
 
 ;; Tests using sample computations for sieve
-(check-expect (sieve L1) L1-VAL)
-(check-expect (sieve L2) L2-VAL)
-(check-expect (sieve L3) L3-VAL)
-(check-expect (sieve L4) L4-VAL)
+(check-expect (sieve L1 4) L1-VAL)
+(check-expect (sieve L2 9) L2-VAL)
+(check-expect (sieve L3 6) L3-VAL)
+(check-expect (sieve L4 4) L4-VAL)
 
 ;; Tests using sample computations for sieve
-(check-expect (sieve '(7 11 13 17 19 23 29 31 37 41 43 47
-                         49 53 59 61 67))
-              '(7 11 13 17 19 23 29 31 37 41 43 47 53 59
-                  61 67))
-(check-expect (sieve '(5 7 11 13 17 19 23 25 29 31 35))
-              '(5 7 11 13 17 19 23 29 31))
+(check-expect (sieve '(5 7) 4) '(5 7))
+(check-expect (sieve '(5 7 11 13 15) 8)
+              '(5 7 11 13))
 
-(define T3 (time (all-primes<=n 50000)))
-(define T4 (time (the-primes<=n 50000)))
+;(define T3 (time (all-primes<=n 50000)))
+;(define T4 (time (the-primes<=n 50000)))

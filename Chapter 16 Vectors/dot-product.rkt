@@ -55,7 +55,7 @@
 ;; Assumption: Given vectors have the same length
 (define (dot-product V1 V2)
   (local 
-    [;; f-on-VINTV2: [int int] --> number
+    [;; f-on-VINTV2: [int int] number --> number
      ;; Purpose: Sum the product of vector elements in the given interval
      ;; ACCUM INV: sum = SIGMA V1[i]*V2[i] for i=0..low-1
      (define (sum-products low high sum)
@@ -64,9 +64,9 @@
            (sum-products (add1 low)
                          high
                          (+ (* (vector-ref V1 low)
-                                            (vector-ref V2 low))
+                               (vector-ref V2 low))
                             sum))))]
-     (sum-products 0 (sub1 (vector-length V1)) 0)))
+    (sum-products 0 (sub1 (vector-length V1)) 0)))
      
 ;; Tests using sample values for f-on-vector
 (check-expect (dot-product VECTOR0 VECTOR0) 0)

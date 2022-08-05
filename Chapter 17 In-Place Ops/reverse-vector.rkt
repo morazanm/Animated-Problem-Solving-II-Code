@@ -53,15 +53,6 @@
 (define V1 (vector 1 2 3 4 5))
 (define V2 (build-vector 5000 (λ (i) (make-posn i i))))
 
-;; natnum natnum --> (void)
-;; Purpose: Swap the elements at the given indices
-;; Effect: V is mutated by swapping elements at given indices
-(define (swap! V i j)
-  (local [(define temp (vector-ref V i))]
-    (begin
-      (vector-set! V i (vector-ref V j))
-      (vector-set! V j temp))))
-
 ;(define (helper V low high)
 ;  (if (> low high)
 ;      (void)

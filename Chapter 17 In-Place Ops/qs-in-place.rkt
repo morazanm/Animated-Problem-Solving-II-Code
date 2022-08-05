@@ -116,3 +116,21 @@
                 V4)
               (vector 0 1 2 3 4 5 6 7 8 9))
 
+(define (quick-sorting a-lon)
+  (if (empty? a-lon) ;; O(n)
+      '()
+      ;; splitting O(lg n), append O(n)
+      (local [(define SMALLER= (filter (λ (i) (<= i (first a-lon)))
+                                       (rest a-lon)))
+              (define GREATER  (filter (λ (i) (> i (first a-lon)))
+                                       (rest a-lon)))]
+        (append (quick-sorting SMALLER=)
+                (cons (first a-lon)
+                      (quick-sorting GREATER))))))
+
+(define TL (build-list 50000 (λ (i) i)))
+(define TV (list->vector TL))
+
+;(define RTL (time (quick-sorting TL)))
+;(define RTV (time (qs-in-place! TV)))
+
