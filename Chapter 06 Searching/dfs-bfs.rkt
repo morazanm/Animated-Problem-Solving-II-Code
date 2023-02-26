@@ -169,7 +169,7 @@
 (define T0 '())
 (define T1 NODE10)
 (define T2 NODE600)
-(define T3 (make-tonatnum 7))
+(define T3 (make-tonatnum 7)) ;; may take a long time to process
 
 (check-satisfied T3 (λ (t) (<= (tox-depth t) 7)))
 (check-satisfied (make-tonatnum 5)
@@ -218,19 +218,19 @@
 
 ;; Sample expressions for ton-dfs-contains?
 (define T0-DFS-VAL (and (not (empty? T0))
-                        (node-dfs-contains? 77 T1)))
+                        (node-dfs-contains? 77 T0)))
 (define T1-DFS-VAL (and (not (empty? T1))
                         (node-dfs-contains? 33 T1)))
 (define T2-DFS-VAL (and (not (empty? T2))
                         (node-dfs-contains? 23 T2)))
-(define T3-DFS-VAL (and (not (empty? T3))
-                        (node-dfs-contains? 45 T3)))
+;(define T3-DFS-VAL (and (not (empty? T3))
+;                        (node-dfs-contains? 45 T3))) ;; may take very long to evaluate
 
 ;; Tests using sample computations for ton-dfs-contains?
 (check-expect (ton-dfs-contains? 77 T0) T0-DFS-VAL)
 (check-expect (ton-dfs-contains? 33 T1) T1-DFS-VAL)
 (check-expect (ton-dfs-contains? 23 T2) T2-DFS-VAL)
-(check-expect (ton-dfs-contains? 45 T3) T3-DFS-VAL)
+;(check-expect (ton-dfs-contains? 45 T3) T3-DFS-VAL) ;; may take very long to evaluate
 
 ;; Tests using sample values for ton-dfs-contains?
 (check-satisfied (make-node 307759

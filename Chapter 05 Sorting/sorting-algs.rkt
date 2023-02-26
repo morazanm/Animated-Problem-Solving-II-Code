@@ -167,6 +167,8 @@
       (local [(define NEW-LOLON (rest (rest a-lolon)))]
         (cons (merge (first a-lolon) (second a-lolon))
               (merge-neighs NEW-LOLON)))))
+;; TERMINATION ARGUMENT
+;; 
 
 ;; Sample expressions for merge-neighs
 (define MN-LOLON1-VAL LOLON1)
