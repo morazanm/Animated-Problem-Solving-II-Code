@@ -128,9 +128,9 @@
                 (cons (first a-lon)
                       (quick-sorting GREATER))))))
 
-(define TL (build-list 50000 (λ (i) i)))
+(define TL (build-list 15000 (λ (i) i)))
 (define TV (list->vector TL))
 
-;(define RTL (time (quick-sorting TL)))
-;(define RTV (time (qs-in-place! TV)))
+(define RTL (time (quick-sorting TL)))
+(define RTV (time (qs-in-place! TV)))
 

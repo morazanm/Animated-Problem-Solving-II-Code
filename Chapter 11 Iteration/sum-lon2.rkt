@@ -63,7 +63,7 @@
 
 ;; (listof number) --> number
 ;; Purpose: Add the numbers in the given list of numbers
-(define (sum-lon5 a-lon) (foldr + 0 a-lon))
+(define (sum-lon5 a-lon) (foldl + 0 a-lon))
 
 (check-expect (sum-lon5 '()) 0)
 (check-expect (sum-lon5 '(1 2 3)) 6)
