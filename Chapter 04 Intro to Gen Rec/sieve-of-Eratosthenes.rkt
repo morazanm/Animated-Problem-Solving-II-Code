@@ -147,6 +147,15 @@
 (check-expect (sieve '(5 7) 4) '(5 7))
 (check-expect (sieve '(5 7 11 13 15) 8)
               '(5 7 11 13))
-
-;(define T3 (time (all-primes<=n 50000)))
-;(define T4 (time (the-primes<=n 50000)))
+"structural recursion"
+(define SR1 (time (all-primes<=n 20000)))
+(define SR2 (time (all-primes<=n 20000)))
+(define SR3 (time (all-primes<=n 20000)))
+(define SR4 (time (all-primes<=n 20000)))
+(define SR5 (time (all-primes<=n 20000)))
+"generative recursion"
+(define GR1 (time (the-primes<=n 20000)))
+(define GR2 (time (the-primes<=n 20000)))
+(define GR3 (time (the-primes<=n 20000)))
+(define GR4 (time (the-primes<=n 20000)))
+(define GR5 (time (the-primes<=n 20000)))

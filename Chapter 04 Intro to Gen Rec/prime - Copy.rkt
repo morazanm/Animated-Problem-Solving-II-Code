@@ -147,8 +147,8 @@
 (check-expect (the-primes<=n 17) '(2 3 5 7 11 13 17))
 (check-expect (the-primes<=n 3)  '(2 3))
 
-(define T1 (time (all-primes<=n 12K)))
-(define T2 (time (the-primes<=n 12K)))
+;(define T1 (time (all-primes<=n 12K)))
+;(define T2 (time (the-primes<=n 12K)))
 
 ;(define T3 (time (all-primes<=n 50000)))
 ;(define T4 (time (the-primes<=n 50000)))

@@ -4,83 +4,83 @@
 
 (require while)
 
+
+;;; natnum --> natnum
+;;; Purpose: Compute the factorial of the given natural number
+;(define (fact2-v1 n)
+;  (local [;; natnum
+;          ;; Purpose: The next possible accum factor
+;          (define k (void))
+;
+;          ;; natnum
+;          ;; Purpose: The current approximation of n!
+;          (define accum (void))
+;          
+;          ;; natnum natnum --> natnum
+;          ;; Purpose: Compute the factorial of the first
+;          ;;          given natural number
+;          ;; Effect: k is decremented and
+;          ;;         accum is multiplied by k
+;          ;; Accumulator invariant
+;          ;;   accum = the product of the natural numbers in [k+1..n]
+;          (define (fact-state!)
+;            (if (= k 0)
+;                accum
+;                (begin
+;                  (set! k (sub1 k))
+;                  (set! accum (* accum k))
+;                  (fact-state!))))]
+;    (begin
+;      (set! k n)
+;      (set! accum 1)
+;      (fact-state!))))
+;
+;;; Tests using sample values for fact2-v1
+;(check-expect (fact2-v1 0)  1)
+;(check-expect (fact2-v1 5)  120)
+;(check-expect (fact2-v1 10) 3628800)
+;(check-expect (fact2-v1 2)  2)
+;(check-expect (fact2-v1 6)  720)
+
+
+;;; natnum --> natnum
+;;; Purpose: Compute the factorial of the given natural number
+;(define (fact2-v2 n)
+;  (local [;; natnum
+;          ;; Purpose: The next possible accum factor
+;          (define k (void))
+;
+;          ;; natnum
+;          ;; Purpose: The current approximation of n!
+;          (define accum (void))
+;          
+;          ;; natnum natnum --> natnum
+;          ;; Purpose: Compute the factorial of the first
+;          ;;          given natural number
+;          ;; Effect: k is decremented and
+;          ;;         accum is multiplied by k
+;          ;; Accumulator invariant
+;          ;;   accum = the product of the natural numbers in [k+1..n]
+;          (define (fact-state!)
+;            (if (= k 0)
+;                accum
+;                (begin
+;                  (set! accum (* accum k))
+;                  (set! k (sub1 k))
+;                  (fact-state!))))]
+;    (begin
+;      (set! k n)
+;      (set! accum 1)
+;      (fact-state!))))
+;
+;;; Tests using sample values for fact2-v2
+;(check-expect (fact2-v2 0)  1)
+;(check-expect (fact2-v2 5)  120)
+;(check-expect (fact2-v2 10) 3628800)
+;(check-expect (fact2-v2 2)  2)
+;(check-expect (fact2-v2 6)  720)
+
 #|
-;; natnum --> natnum
-;; Purpose: Compute the factorial of the given natural number
-(define (fact2-v1 n)
-  (local [;; natnum
-          ;; Purpose: The next possible accum factor
-          (define k (void))
-
-          ;; natnum
-          ;; Purpose: The current approximation of n!
-          (define accum (void))
-          
-          ;; natnum natnum --> natnum
-          ;; Purpose: Compute the factorial of the first
-          ;;          given natural number
-          ;; Effect: k is decremented and
-          ;;         accum is multiplied by k
-          ;; Accumulator invariant
-          ;;   accum = the product of the natural numbers in [k+1..n]
-          (define (fact-state!)
-            (if (= k 0)
-                accum
-                (begin
-                  (set! k (sub1 k))
-                  (set! accum (* accum k))
-                  (fact-state!))))]
-    (begin
-      (set! k n)
-      (set! accum 1)
-      (fact-state!))))
-
-;; Tests using sample values for fact2-v1
-(check-expect (fact2-v1 0)  1)
-(check-expect (fact2-v1 5)  120)
-(check-expect (fact2-v1 10) 3628800)
-(check-expect (fact2-v1 2)  2)
-(check-expect (fact2-v1 6)  720)
-|#
-
-;; natnum --> natnum
-;; Purpose: Compute the factorial of the given natural number
-(define (fact2-v2 n)
-  (local [;; natnum
-          ;; Purpose: The next possible accum factor
-          (define k (void))
-
-          ;; natnum
-          ;; Purpose: The current approximation of n!
-          (define accum (void))
-          
-          ;; natnum natnum --> natnum
-          ;; Purpose: Compute the factorial of the first
-          ;;          given natural number
-          ;; Effect: k is decremented and
-          ;;         accum is multiplied by k
-          ;; Accumulator invariant
-          ;;   accum = the product of the natural numbers in [k+1..n]
-          (define (fact-state!)
-            (if (= k 0)
-                accum
-                (begin
-                  (set! accum (* accum k))
-                  (set! k (sub1 k))
-                  (fact-state!))))]
-    (begin
-      (set! k n)
-      (set! accum 1)
-      (fact-state!))))
-
-;; Tests using sample values for fact2-v2
-(check-expect (fact2-v2 0)  1)
-(check-expect (fact2-v2 5)  120)
-(check-expect (fact2-v2 10) 3628800)
-(check-expect (fact2-v2 2)  2)
-(check-expect (fact2-v2 6)  720)
-
-
 ;; natnum --> natnum
 ;; Purpose: Compute the factorial of the given natural number
 (define (fact2-v3 n)
@@ -130,6 +130,8 @@
 (check-expect (fact2-v3 2)  2)
 (check-expect (fact2-v3 6)  720)
 
+|#
+
 ;;; natnum --> natnum
 ;;; Purpose: Compute the factorial of the given natural number
 ;(define (fact2-v4 n)
@@ -167,6 +169,7 @@
 ;          ]
 ;    (fact-state!)))
 
+
 ;; natnum --> natnum
 ;; Purpose: Compute the factorial of the given natural number
 (define (fact2-v4 n)
@@ -195,8 +198,8 @@
     ))
 
 ;; Tests using sample values for fact2-v4
-(check-expect (fact2-v4 0)  1)
-(check-expect (fact2-v4 5)  120)
-(check-expect (fact2-v4 10) 3628800)
-(check-expect (fact2-v4 2)  2)
-(check-expect (fact2-v4 6)  720)
+;(check-expect (fact2-v4 0)  1)
+;(check-expect (fact2-v4 5)  120)
+;(check-expect (fact2-v4 10) 3628800)
+;(check-expect (fact2-v4 2)  2)
+;(check-expect (fact2-v4 6)  720)

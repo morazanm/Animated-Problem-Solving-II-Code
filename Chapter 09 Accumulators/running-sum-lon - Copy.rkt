@@ -139,5 +139,5 @@
 (check-expect (lon-running-totals-v2 '(-1 0 1)) '(-1 -1 0))
 (check-expect (lon-running-totals-v2 '(-5 2 4 0)) '(-5 -3 1 1))
 
-;(define T1 (time (lon-running-totals  L2)))
-;(define T2 (time (lon-running-totals-v2 L2)))
+(define T1 (time (lon-running-totals  L2)))
+(define T2 (time (lon-running-totals-v2 L2)))

@@ -402,8 +402,4 @@
 "-----"
 
 
-(define LL0 (build-list 100000 (λ (i) (random 1000000))))
-(define QS1 (time (quick-sorting LL0)))
-(define MS1 (time (merge-sorting LL0)))
-
 ;(define T4 (time (heap-sorting LON3)))

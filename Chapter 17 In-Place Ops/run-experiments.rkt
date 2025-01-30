@@ -272,4 +272,4 @@
           (newline)
           (empirical-study (sub1 factor) lst-of-sorters)))))
 
-(empirical-study 15 (list qs-in-place! heap-sort-in-place!))
+(empirical-study 100 (list qs-in-place! heap-sort-in-place!))

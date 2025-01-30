@@ -382,12 +382,12 @@
                  (λ (t) (not (ton-bfs-contains? 6561 t))))
 
 
-(define T1-DFS (time (ton-bfs-contains?
-                      (list-ref (map (λ (t) (node-val t)) (node-subtrees T3))
-                                0)
-                      T3)))
-(define T2-DFS (time (ton-bfs-contains?
-                      (list-ref (map (λ (t) (node-val t)) (node-subtrees T3))
-                                (sub1 (length (node-subtrees T3))))
-                      T3)))
+;(define T1-DFS (time (ton-bfs-contains?
+;                      (list-ref (map (λ (t) (node-val t)) (node-subtrees T3))
+;                                0)
+;                      T3)))
+;(define T2-DFS (time (ton-bfs-contains?
+;                      (list-ref (map (λ (t) (node-val t)) (node-subtrees T3))
+;                                (sub1 (length (node-subtrees T3))))
+;                      T3)))
 
